@@ -122,7 +122,9 @@ then
     -Dkylin.hadoop.conf.dir=${kylin_hadoop_conf_dir} \
     -Dspring.profiles.active=${spring_profile} \
     org.apache.hadoop.util.RunJar ${tomcat_root}/bin/bootstrap.jar  org.apache.catalina.startup.Bootstrap start >> ${KYLIN_HOME}/logs/kylin.out 2>&1 & echo $! > ${KYLIN_HOME}/pid &
-    
+
+    ${KYLIN_HOME}/bin/check-port-availability.sh || exit 1;
+
     echo ""
     echo "A new Kylin instance is started by $USER. To stop it, run 'kylin.sh stop'"
     echo "Check the log at ${KYLIN_HOME}/logs/kylin.log"
